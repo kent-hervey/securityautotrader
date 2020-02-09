@@ -16,7 +16,12 @@ public class TestController {
 
         //Add in calls to different test functionality and add to result string and counters
 
-        result += "Completed running tests. Passed: " + pass + " Failed: " + fail ;
+        if(pass == 0 && fail == 0){
+            result += "WARNING:  No tests ran.";
+        }
+        else {
+            result += "Completed running tests. Passed: " + pass + " Failed: " + fail;
+        }
         return result;
     }
 
