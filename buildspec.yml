@@ -15,4 +15,4 @@ phases:
       - echo Build finished at `date`
 artifacts:
   files:
-    - target/clientLibrary-1.0-SNAPSHOT.jar
+    - target/client.library-1.0-SNAPSHOT.jar
