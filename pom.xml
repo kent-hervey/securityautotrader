@@ -94,6 +94,27 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+              <configuration>
+                <classifier>spring-boot</classifier>
+                <mainClass>
+                  com.autotrader.App
+                </mainClass>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+
+
+
       </plugins>
     </pluginManagement>
   </build>
