@@ -5,7 +5,6 @@ import com.autotrader.web.client.robinhood.authorization.ConfidentialConstants;
 import com.autotrader.web.client.robinhood.authorization.RetrieveToken;
 import com.autotrader.web.client.robinhood.authorization.request.LoginData;
 import com.autotrader.web.client.robinhood.authorization.response.Token;
-import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
