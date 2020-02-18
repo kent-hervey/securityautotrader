@@ -4,17 +4,20 @@ import com.autotrader.web.client.ClientResponse;
 import com.autotrader.web.client.robinhood.authorization.request.LoginData;
 import com.autotrader.web.client.robinhood.authorization.request.Request;
 import com.autotrader.web.client.robinhood.authorization.response.Token;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 
-
+@Service
 public class RetrieveToken {
 
     private static final String URL = "https://api.robinhood.com/oauth2/token/";
 
     private RestTemplate restTemplate;
 
+    @Autowired
     public RetrieveToken(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
 
