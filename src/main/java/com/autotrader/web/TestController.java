@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 @RestController
 public class TestController {
     private static final Logger LOGGER = LoggerFactory.getLogger((TestController.class));
@@ -18,22 +20,27 @@ public class TestController {
     @Autowired
     private RetrieveToken retrieveToken;
 
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+    Date date = new Date();
+	String showDate = dateFormat.format(date);
+
     @GetMapping("/testServices")
     public String testServices() {
         LOGGER.warn("REST endpoint invoke:  /testServices");
 
         int pass = 0;
         int fail = 0;
-        String result = "Successfully  invoked endpoint. Running tests: \n";
+        String result = "At " + showDate+ "\nSuccessfully  invoked endpoint. Running tests: \n";
 
         //Add in calls to different test functionality and add to result string and counters
 
         if(testLogin()){
-            result += "Login: PASSED";
+            result += "Login: PASSED ";
             pass++;
         }
         else {
-            result += "Login: FAILED";
+            result += "Login: FAILED ";
             fail++;
         }
 
