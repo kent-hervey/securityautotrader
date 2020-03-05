@@ -4,6 +4,8 @@ import com.autotrader.web.client.ClientResponse;
 import com.autotrader.web.client.robinhood.authorization.request.LoginData;
 import com.autotrader.web.client.robinhood.authorization.request.Request;
 import com.autotrader.web.client.robinhood.authorization.response.Token;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class RetrieveToken {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RetrieveToken.class); //e11
+
 
     private static final String URL = "https://api.robinhood.com/oauth2/token/";
 
@@ -24,6 +29,9 @@ public class RetrieveToken {
     }
 
     public ClientResponse invoke(LoginData loginData) {
+        LOGGER.info("Beginning RetriveToken invocation.");
+        System.out.println("Beginning RetrieveToken invocation");
+
         //System.out.println("test me me");
         //System.out.println("\n\n\nIs RestTemplate null? " + (restTemplate==null)); Alex removed in Ep 9
         //System.out.println("afterwards");
@@ -37,7 +45,9 @@ public class RetrieveToken {
         Token token = responseEntity.getBody();
 
         //System.out.println("\n\nToken:  " + token.getAccess_token().substring(0,1000));
-        System.out.println("\n\nToken:  " + token.getAccess_token().substring(0));
+        LOGGER.debug("\n\nToken:  " + token.getAccess_token().substring(0));  //changed to logger e11
+        LOGGER.info("End of RetrieveToken invocation");
+
         System.out.println("token length is;  " + token.getAccess_token().length());
 
         return token;

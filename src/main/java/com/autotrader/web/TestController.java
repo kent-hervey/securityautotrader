@@ -5,18 +5,23 @@ import com.autotrader.web.client.robinhood.authorization.ConfidentialConstants;
 import com.autotrader.web.client.robinhood.authorization.RetrieveToken;
 import com.autotrader.web.client.robinhood.authorization.request.LoginData;
 import com.autotrader.web.client.robinhood.authorization.response.Token;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
+    private static final Logger LOGGER = LoggerFactory.getLogger((TestController.class));
 
     @Autowired
     private RetrieveToken retrieveToken;
 
     @GetMapping("/testServices")
     public String testServices() {
+        LOGGER.warn("REST endpoint invoke:  /testServices");
+
         int pass = 0;
         int fail = 0;
         String result = "Successfully  invoked endpoint. Running tests: \n";
@@ -39,8 +44,11 @@ public class TestController {
         else {
             result += "Completed running tests. Passed: " + pass + " Failed: " + fail;
         }
+
+        LOGGER.warn("Test Services endpoint result:  " + result);
         return result;
     }
+
 
     private boolean testLogin(){
         Token token = (Token)retrieveToken.invoke(generateLoginData());
