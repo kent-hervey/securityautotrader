@@ -24,11 +24,13 @@ public class TestController {
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-    Date date = new Date();
-	String showDate = dateFormat.format(date);
+
 
     @GetMapping("/testServices")
     public String testServices() {
+
+        Date date = new Date();
+        String showDate = dateFormat.format(date);
         LOGGER.warn("REST endpoint invoke:  /testServices");
 
         int pass = 0;
