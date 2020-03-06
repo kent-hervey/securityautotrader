@@ -14,6 +14,9 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class RetrieveToken {
+    /*
+    Testing codeguru reviewer
+     */
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RetrieveToken.class); //e11
 
