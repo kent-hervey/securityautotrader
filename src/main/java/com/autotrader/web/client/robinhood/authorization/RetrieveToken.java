@@ -41,7 +41,7 @@ public class RetrieveToken {
         HttpHeaders httpHeaders = new HttpHeaders();
 
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Request> httpEntity = new HttpEntity<Request>(generateRequest(loginData), httpHeaders);
+        HttpEntity<Request> httpEntity = new HttpEntity<>(generateRequest(loginData), httpHeaders);
         ResponseEntity<Token> responseEntity = restTemplate.exchange(URL, HttpMethod.POST, httpEntity, Token.class);
         Token token = responseEntity.getBody();
 

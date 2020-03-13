@@ -6,7 +6,7 @@ import com.autotrader.web.client.ClientResponse;
 import lombok.Data;
 
 @Data
-public class LoginData extends ClientResponse {
+public class LoginData extends ClientRequest {
 
     private String device_token;
     private String username;
