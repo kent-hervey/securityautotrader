@@ -21,6 +21,7 @@ public class RobinhoodFactoryIT {
     @Test
     public void invokeTest(){
         ClientResponse response = robinhoodFactory.invoke(BrokerCall.ROBINHOOD_LOGIN, generateLoginData());
+        System.out.println("Finished test. for breakpoint");
     }
 
     private LoginData generateLoginData() {

@@ -1,6 +1,9 @@
 package com.autotrader.web.client.robinhood.authorization;
 
+import com.autotrader.web.client.BrokerCall;
+import com.autotrader.web.client.ClientRequest;
 import com.autotrader.web.client.ClientResponse;
+import com.autotrader.web.client.robinhood.RobinhoodCalls;
 import com.autotrader.web.client.robinhood.authorization.request.LoginData;
 import com.autotrader.web.client.robinhood.authorization.request.Request;
 import com.autotrader.web.client.robinhood.authorization.response.Token;
@@ -13,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 @Service
-public class RetrieveToken {
+public class RetrieveToken implements RobinhoodCalls {
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RetrieveToken.class); //e11
@@ -29,7 +32,13 @@ public class RetrieveToken {
 
     }
 
-    public ClientResponse invoke(LoginData loginData) {
+    @Override
+    public BrokerCall getBrokerCall(){
+        return BrokerCall.ROBINHOOD_LOGIN;
+    }
+
+    @Override
+    public ClientResponse invoke(ClientRequest loginData) {
         LOGGER.info("Beginning RetriveToken invocation.");
         System.out.println("Beginning RetrieveToken invocation");
 
@@ -41,7 +50,7 @@ public class RetrieveToken {
         HttpHeaders httpHeaders = new HttpHeaders();
 
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Request> httpEntity = new HttpEntity<>(generateRequest(loginData), httpHeaders);
+        HttpEntity<Request> httpEntity = new HttpEntity<>(generateRequest((LoginData)loginData), httpHeaders);
         ResponseEntity<Token> responseEntity = restTemplate.exchange(URL, HttpMethod.POST, httpEntity, Token.class);
         Token token = responseEntity.getBody();
 
