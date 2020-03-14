@@ -33,6 +33,7 @@ public class RobinhoodFactory {
         mappedRobinhoodCalls = new HashMap<>();
 
         for(RobinhoodCalls calls : robinhoodCalls){
+            Logger.info("Populating mappedRobinhoodCalls with service:  " + calls.getBrokerCall());
             mappedRobinhoodCalls.put(calls.getBrokerCall(), calls);
 
 
