@@ -1,6 +1,8 @@
 package com.autotrader.web;
 
 
+import com.autotrader.web.client.BrokerCall;
+import com.autotrader.web.client.robinhood.RobinhoodFactory;
 import com.autotrader.web.client.robinhood.authorization.ConfidentialConstants;
 import com.autotrader.web.client.robinhood.authorization.RetrieveToken;
 import com.autotrader.web.client.robinhood.authorization.request.LoginData;
@@ -20,7 +22,8 @@ public class TestController {
     private static final Logger LOGGER = LoggerFactory.getLogger((TestController.class));
 
     @Autowired
-    private RetrieveToken retrieveToken;
+    //private RetrieveToken retrieveToken;
+    private RobinhoodFactory factory;
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
@@ -35,7 +38,7 @@ public class TestController {
 
         int pass = 0;
         int fail = 0;
-        String result = "At " + showDate+ "\nSuccessfully  invoked endpoint. Running tests: \n";
+        String result = "At " + showDate+ "\n2Successfully  invoked endpoint. Running tests: \n";
 
         //Add in calls to different test functionality and add to result string and counters
 
@@ -62,7 +65,7 @@ public class TestController {
 
 
     private boolean testLogin(){
-        Token token = (Token)retrieveToken.invoke(generateLoginData());
+        Token token = (Token)factory.invoke(BrokerCall.ROBINHOOD_LOGIN, generateLoginData());
         if(token==null){
             return false;
         }
