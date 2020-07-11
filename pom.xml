@@ -57,6 +57,16 @@
       <version>2.2.4.RELEASE</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-aws-parameter-store-config -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-aws-parameter-store-config</artifactId>
+      <version>2.2.2.RELEASE</version>
+    </dependency>
+
+
+
+
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>

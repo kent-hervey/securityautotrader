@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.platform.commons.util.StringUtils;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -20,20 +21,27 @@ public class RetrieveTokenIT {
     @Autowired
     private RetrieveToken retriveToken;
 
+    @Value("${robinhood.device.token}")
+    private String robinhoodDeviceToken;
+
+    @Value("${robinhood.username}")
+    private String robinhoodUsername;
+
+    @Value("${robinhood.password}")
+    private String robinhoodPassword;
+
     @Test
     public void SpringTest(){
         Token token = (Token)retriveToken.invoke(generateLoginData());
         assertNotNull(token);
         assertTrue(StringUtils.isNotBlank(token.getAccess_token()));
-
-
     }
 
     private LoginData generateLoginData(){
         LoginData loginData = new LoginData();
-        loginData.setDevice_token(ConfidentialConstants.ROBINHOOD_DEVICE_TOKEN);
-        loginData.setUsername(ConfidentialConstants.ROBINHOOD_USERNAME);
-        loginData.setPassword(ConfidentialConstants.ROBINHOOD_PASSWORD);
+        loginData.setDevice_token(robinhoodDeviceToken);
+        loginData.setUsername(robinhoodUsername);
+        loginData.setPassword(robinhoodPassword);
 
         return loginData;
     }

@@ -3,13 +3,12 @@ package com.autotrader.web;
 
 import com.autotrader.web.client.BrokerCall;
 import com.autotrader.web.client.robinhood.RobinhoodFactory;
-import com.autotrader.web.client.robinhood.authorization.ConfidentialConstants;
-import com.autotrader.web.client.robinhood.authorization.RetrieveToken;
 import com.autotrader.web.client.robinhood.authorization.request.LoginData;
 import com.autotrader.web.client.robinhood.authorization.response.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +23,21 @@ public class TestController {
     @Autowired
     //private RetrieveToken retrieveToken;
     private RobinhoodFactory factory;
+
+    @Value("${dynamodb.access.key}")
+    private String dynamoDBAccessKey;
+
+    @Value("${dynamodb.access.secret}")
+    private String dynamoDBAccessSecret;
+
+    @Value("${robinhood.device.token}")
+    private String robinhoodDeviceToken;
+
+    @Value("${robinhood.username}")
+    private String robinhoodUsername;
+
+    @Value("${robinhood.password}")
+    private String robinhoodPassword;
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
@@ -51,6 +65,14 @@ public class TestController {
             fail++;
         }
 
+        if (testParameterStore()){
+            result +=  "Parameter Store:  PASSED\n";
+            pass++;
+        }
+        else {
+            result += "Parameter Store:  FAILED\n";
+            fail++;
+        }
 
         if(pass == 0 && fail == 0){
             result += "WARNING:  No tests ran.";
@@ -60,7 +82,7 @@ public class TestController {
         }
 
         LOGGER.warn("Test Services endpoint result:  " + result);
-        return result;
+        return result + "Alex is great";
     }
 
 
@@ -78,14 +100,33 @@ public class TestController {
     @org.jetbrains.annotations.NotNull
     private LoginData generateLoginData(){
         LoginData loginData = new LoginData();
-        loginData.setDevice_token(ConfidentialConstants.ROBINHOOD_DEVICE_TOKEN);
-        loginData.setUsername(ConfidentialConstants.ROBINHOOD_USERNAME);
-        loginData.setPassword(ConfidentialConstants.ROBINHOOD_PASSWORD);
+        loginData.setDevice_token(robinhoodDeviceToken);
+        loginData.setUsername(robinhoodUsername);
+        loginData.setPassword(robinhoodPassword);
 
         return loginData;
     }
 
+    private boolean testParameterStore() {
+        //Alex deleted the below in the last part of Episde 16 for confidentiality reasons
+//        LOGGER.info("Testing Parameter Store");
+//        LOGGER.info("dynamicDBAccessKey: [{}] ", dynamoDBAccessKey);
+//        LOGGER.info("dynamoDBAccessSecret: [{}] ", dynamoDBAccessSecret);
+
+        LOGGER.info(robinhoodDeviceToken);
+        LOGGER.info(robinhoodUsername);
+        LOGGER.info(robinhoodPassword);
 
 
+        if(dynamoDBAccessKey == null || dynamoDBAccessKey.isEmpty()) {
+            return false;
+        }
+        else if (dynamoDBAccessSecret == null || dynamoDBAccessSecret.isEmpty()){
+            return false;
+
+        }
+
+        return true;
+    }
 
 }
