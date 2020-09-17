@@ -20,7 +20,4 @@ public class DatabaseConfig {
         return new DynamoDBMapper(client);
     }
 
-
-
-
 }
