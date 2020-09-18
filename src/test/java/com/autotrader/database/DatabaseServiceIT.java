@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DatabaseServiceIT {
@@ -23,22 +26,22 @@ public class DatabaseServiceIT {
 
         databaseService.save(newUser);
 
-        UserCredentials loadUser = databaseService.read(user:"u1", broker:"b1", UserCredentials.class);
-        assertEquals(expected:"u1", loadUser.getUser());
-        assertEquals(expected:"b1", loadUser.getBroker());
-        assertEquals(expected:"t1", loadUser.getToken());
+        UserCredentials loadUser = databaseService.read("u1", "b1", UserCredentials.class);
+        assertEquals("u1", loadUser.getUser());
+        assertEquals("b1", loadUser.getBroker());
+        assertEquals("t1", loadUser.getToken());
 
         newUser.setToken("t2");
         databaseService.save(newUser);
-        UserCredentials updateUser = databaseService.read(user:"u1", broker:"b1"/*,UserCredentials.class*/);
-        assertEquals(expected:"u1", updateUser.getUser());
-        assertEquals(expected:"b1", updateUser.getBroker());
-        assertEquals(expected:"t2", updateUser.getToken());
+        UserCredentials updateUser = databaseService.read("u1", "b1", UserCredentials.class);
+        assertEquals("u1", updateUser.getUser());
+        assertEquals("b1", updateUser.getBroker());
+        assertEquals("t2", updateUser.getToken());
 
 
         databaseService.delete(newUser);
 
-        UserCredentials deletedUser = databaseService.read(user:"u1", broker"b1", UserCredentials.class);
+        UserCredentials deletedUser = databaseService.read("u1", "b1", UserCredentials.class);
         assertNull(deletedUser);
 
     }
