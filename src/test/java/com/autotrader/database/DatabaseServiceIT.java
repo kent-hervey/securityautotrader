@@ -19,6 +19,20 @@ public class DatabaseServiceIT {
 
     @Test
     public void crudTest () {
+
+        UserCredentials newUser22 = new UserCredentials();
+        newUser22.setUser("22u1");
+        newUser22.setBroker("22b1");
+        newUser22.setToken("22t1");
+
+        databaseService.save(newUser22);
+
+        UserCredentials loadUser22 = databaseService.read("22u1", "22b1", UserCredentials.class);
+        System.out.println("loadUser22 is  " + loadUser22);
+        loadUser22.setToken(loadUser22.getToken() + "plusThis");
+        System.out.println("loadUser22 is now " + loadUser22);
+        databaseService.save(loadUser22);
+
         UserCredentials newUser = new UserCredentials();
         newUser.setUser("u1");
         newUser.setBroker("b1");
@@ -39,10 +53,13 @@ public class DatabaseServiceIT {
         assertEquals("t2", updateUser.getToken());
 
 
-        databaseService.delete(newUser);
+        //databaseService.delete(newUser);
 
-        UserCredentials deletedUser = databaseService.read("u1", "b1", UserCredentials.class);
-        assertNull(deletedUser);
+//        UserCredentials deletedUser = databaseService.read("u1", "b1", UserCredentials.class);
+//        assertNull(deletedUser);
+
+
+
 
     }
 
